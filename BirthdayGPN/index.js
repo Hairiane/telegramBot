@@ -4,8 +4,22 @@ const token = "6653702940:AAGS3kq4JPMSC621R83itjEW3k52zm12Ghc";
 
 const bot = new TelegeramApi(token, {polling: true});
 
+const img = [
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/18.webp",
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/10.webp",
+  "https://tlgrm.eu/_/stickers/3d2/135/3d213551-8cac-45b4-bdf3-e24a81b50526/39.webp",
+  "https://tlgrm.eu/_/stickers/ccd/a8d/ccda8d5d-d492-4393-8bb7-e33f77c24907/21.webp",
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/3.webp",
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/17.webp",
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/19.webp",
+  "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/16.webp",
+  "https://tlgrm.eu/_/stickers/3d2/135/3d213551-8cac-45b4-bdf3-e24a81b50526/12.webp",
+  "https://tlgrm.eu/_/stickers/3d2/135/3d213551-8cac-45b4-bdf3-e24a81b50526/37.webp",
+];
+
 const notes = new Map();
 notes.set("5.12", ["@Ilgiz_Sharafutdinov", "@Hairianee"]);
+
 console.log(notes);
 // const commands = [
 //   {
@@ -24,10 +38,6 @@ console.log(notes);
 
 const start = () => {
   //   bot.setMyCommands(commands);
-
-  //   bot.onText(/notes/, function (msg, match) {
-  //     console.log(notes);
-  //   });
 
   //   bot.on("message", async msg => {
   //     const text = msg.text;
@@ -64,19 +74,23 @@ const start = () => {
   setInterval(async () => {
     for (let i = 0; i < notes.size; i++) {
       if (notes.get(`${new Date().getDate()}.${new Date().getMonth() + 1}`)) {
-        if (new Date().getHours() === 10) {
+        if (new Date().getSeconds() === 0) {
           await bot.sendSticker(
             -4077749408,
-            "https://tlgrm.eu/_/stickers/711/2ce/7112ce51-3cc1-42ca-8de7-62e7525dc332/10.webp",
+            img[Math.floor(Math.random() * 10)],
           );
           return bot.sendMessage(
-            -4077749408,
+            "-4077749408",
             `С днём рождения ${notes
               .get(`${new Date().getDate()}.${new Date().getMonth() + 1}`)
               .map(arr => arr)}`,
+            //   .map(arr => arr)}`,
           );
         }
       }
+    }
+    if (new Date().getDay() == 4 && new Date().getHours() == 15) {
+      return bot.sendMessage("-4077749408", "На созвон просыпаемся!!");
     }
   }, 1000);
 };
